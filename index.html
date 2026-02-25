@@ -1,84 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Krishika</title>
+<title>Happy Birthday Krishu 💖</title>
 
 <style>
 body {
     margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: sans-serif;
     text-align: center;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    overflow: hidden;
     color: white;
+    overflow-x: hidden;
+}
+
+/* 🌸 Background Layer */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url("krishu.jpeg") top center / cover no-repeat;
+    z-index: -2;
+}
+
+/* ✨ Content Animation */
+.content {
+    opacity: 0;
+    transform: translateY(-100px);
+    animation: slideDown 2s ease-out forwards;
+    animation-delay: 1.5s;
+    margin-top: 50%;   /* 👈 move whole content down */
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h1 {
-    margin-top: 100px;
-    font-size: 55px;
-    animation: glow 2s infinite alternate;
+    margin-top: 0;
+    font-size: 40px;
 }
 
-@keyframes glow {
-    from { text-shadow: 0 0 10px white; }
-    to { text-shadow: 0 0 30px yellow; }
+p {
+    font-size: 18px;
+    margin-top: 20px;
 }
 
-.message {
-    font-size: 22px;
-    margin: 20px;
+/* 💖 Button Styling */
+.button-container {
+    margin-top: 60px;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 10px;
+    font-size: 16px;
     border: none;
-    border-radius: 30px;
-    background: white;
-    color: #ff4081;
-    cursor: pointer;
-    transition: 0.3s;
+    border-radius: 15px;
     margin: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    background: rgb(237, 230, 241);
+    color: #ff4081;
+    transition: 0.3s;
 }
 
 button:hover {
     transform: scale(1.1);
-    background: #ff4081;
-    color: white;
 }
 
-.hidden-message {
+/* 💌 Hidden Message */
+#loveMessage {
     display: none;
-    margin-top: 20px;
-    font-size: 20px;
-    color: #fff;
+    margin-top: 25px;
+    font-size: 18px;
+    animation: fadeIn 1.5s ease-in-out;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🎆 Fireworks Canvas */
 canvas {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
+    pointer-events:none;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎉 Happy Birthday Krishu 🎉</h1>
+<div class="background"></div>
 
-<div class="message">
-    Happy Birthday Jinu, I pray that the Shree Krishna fulfill your dreams and keep you happy always.<br>
-    May your smile always shine brighter than the stars ✨
-</div>
+<div class="content">
+    <h1>🎉 Happy Birthday Krishu 🎉</h1>
 
-<button onclick="showLove()">Hey Jinu click here😀</button>
-<button onclick="playMusic()">Play Birthday Song 🎵</button>
+    <p>
+        Happy Birthday Jinu <br>
+        May Shree Krishna bless you always ✨
+    </p>
 
-<div class="hidden-message" id="loveMessage">
-    Jinu 😊<br><br>
+    <div class="button-container">
+        <button onclick="showLove()">Hey Jinu click here 😀</button>
+    </div>
+
+    <div id="loveMessage">
+       Jinu 😊<br><br>
     Happy Birthday🥳🥳<br>
     Aee Dobu ,I make sure that what Krishna ji plan for you I will never fade that plan.<br>
     And also one more thing I will never let you feel alone.🤗<br>
@@ -87,9 +125,10 @@ canvas {
     Our RF both will be always stronge as you 🥰😉<br>
     Ane mane khaber che ke aap ri aa dosti ek divas rese nai par me e dhyan rakhis ke hame sa rey thik che ne jinu chalse ne🥺🥹<br>
     I wish you unlimited happiness forever ✨🎂
+    </div>
 </div>
 
-<audio id="birthdayMusic" loop>
+<audio id="birthdayMusic">
     <source src="birthday.mpeg" type="audio/mpeg">
 </audio>
 
@@ -97,14 +136,13 @@ canvas {
 
 <script>
 function showLove() {
-    document.getElementById("Message").style.display = "block";
+    document.getElementById("loveMessage").style.display = "block";
+    document.getElementById("birthdayMusic").play().catch(() => {
+        alert("Tap again if music doesn't start 🎵");
+    });
 }
 
-function playMusic() {
-    document.getElementById("birthdayMusic").play();
-}
-
-// Simple Fireworks Animation
+/* 🎆 Fireworks */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -113,39 +151,34 @@ canvas.height = window.innerHeight;
 let particles = [];
 
 function createFirework(x, y) {
-    for(let i=0; i<100; i++) {
+    for (let i = 0; i < 50; i++) {
         particles.push({
             x: x,
             y: y,
-            radius: 2,
-            color: "hsl(" + Math.random() * 360 + ", 100%, 50%)",
-            speedX: (Math.random() - 0.5) * 5,
-            speedY: (Math.random() - 0.5) * 5
+            speedX: (Math.random() - 0.5) * 6,
+            speedY: (Math.random() - 0.5) * 6,
+            size: 3,
+            color: `hsl(${Math.random()*360},100%,50%)`
         });
     }
-}
-
-function animate() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p, index) => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-    });
-    requestAnimationFrame(animate);
 }
 
 canvas.addEventListener("click", function(e){
     createFirework(e.clientX, e.clientY);
 });
 
+function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+    });
+    requestAnimationFrame(animate);
+}
 animate();
 </script>
 
 </body>
 </html>
-
-
